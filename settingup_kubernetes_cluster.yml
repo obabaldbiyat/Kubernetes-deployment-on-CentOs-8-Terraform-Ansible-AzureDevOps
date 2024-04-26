@@ -1,0 +1,6 @@
+---
+- import_playbook: playbooks/prerequisites.yml
+- import_playbook: playbooks/setting_up_nodes.yml
+- import_playbook: playbooks/configure_master_node.yml
+- import_playbook: playbooks/configure_worker_nodes.yml
+- import_playbook: playbooks/deployment_app_2048_on_cluster.yml

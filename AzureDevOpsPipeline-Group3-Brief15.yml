@@ -1,0 +1,48 @@
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/main
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    name: Default
+  steps:
+  - checkout: self
+    clean: true
+    fetchTags: false
+  - task: TerraformCLI@0
+    displayName: terraform init
+    inputs:
+      command: init
+  - task: TerraformCLI@0
+    displayName: terraform apply
+    inputs:
+      command: apply
+      environmentServiceName: 31ce75d9-bb23-413c-b53f-677eb1342d14
+      providerAzureRmSubscriptionId: 393e3de3-0900-4b72-8f1b-fb3b1d6b97f1
+      commandOptions: -auto-approve
+      providerGoogleProject: Groupe3-Brief15
+      providerGoogleRegion: West Europe
+  - task: CmdLine@2
+    displayName: Command Line Script
+    inputs:
+      script: >+
+        terraform output -raw private > private_key.pem
+
+        cat private_key.pem
+
+
+  - task: Bash@3
+    displayName: Bash Script
+    inputs:
+      filePath: ips_to_inventory.sh
+  - task: Ansible@0
+    displayName: Run playbook
+    continueOnError: True
+    inputs:
+      playbookPathOnAgentMachine: settingup_kubernetes_cluster.yml
+      inventoriesAgentMachine: file
+      inventoryFileOnAgentMachine: hosts
+...
