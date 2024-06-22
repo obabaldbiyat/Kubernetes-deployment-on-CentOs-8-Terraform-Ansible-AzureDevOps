@@ -20,8 +20,8 @@ jobs:
     displayName: terraform apply
     inputs:
       command: apply
-      environmentServiceName: 31ce75d9-bb23-413c-b53f-677eb1342d14
-      providerAzureRmSubscriptionId: 393e3de3-0900-4b72-8f1b-fb3b1d6b97f1
+      environmentServiceName: *********************************
+      providerAzureRmSubscriptionId: 3*********************
       commandOptions: -auto-approve
       providerGoogleProject: Groupe3-Brief15
       providerGoogleRegion: West Europe
